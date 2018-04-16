@@ -21,3 +21,8 @@ useTmpfs: false
 # Toggle RBAC on and off
 rbac:
   enabled: true
+
+# Use a dedicated PVC as the storage-backing for the nfs-provisioner.
+nfs:
+  enabled: false
+  pvcStorageSize: 1Gi

@@ -69,6 +69,17 @@ spec:
           volumeMounts:
             - name: export-volume
               mountPath: /export
+{{ if .Values.nfs.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: export-volume
+    spec:
+      accessModes:
+        - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: {{ .Values.nfs.pvcStorageSize }}
+{{ else }}
       volumes:
         - name: export-volume
 {{ if .Values.hostPath }}
@@ -79,4 +90,5 @@ spec:
             medium: Memory
 {{ else }}
           emptyDir: {}
+{{ end }}
 {{ end }}
